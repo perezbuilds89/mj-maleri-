@@ -1,0 +1,63 @@
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0}
+img,video{max-width:100%}
+.lb{display:none}
+.lb.lb-open{display:flex}
+a{color:#1C1A1A}a:hover{color:#5E1A26}
+@keyframes mjreveal{from{stroke-dashoffset:0}to{stroke-dashoffset:-1}}
+.mj-cover{stroke-dasharray:1 1;stroke-dashoffset:0}
+.mj-go .mj-cover{animation:mjreveal 2.6s cubic-bezier(.45,.05,.4,1) .3s forwards}
+.rv-ready .rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.rv-ready .rv.in{opacity:1;transform:none}
+.tilt{transition:transform .25s ease-out;will-change:transform}
+.zoom{overflow:hidden}
+.zoom img{transition:transform .7s ease}
+.tilt:hover .zoom img{transform:scale(1.15)}
+.hero-img{will-change:transform}
+@keyframes twblink{50%{opacity:0}}
+.tw-caret::after{content:"";display:inline-block;width:2px;height:1em;background:#1C1A1A;margin-left:2px;vertical-align:-2px;animation:twblink .8s steps(1) infinite}
+.tw-hero.tw-caret::after{background:#FFFFFF}
+@keyframes stickin{from{opacity:0;transform:rotate(-16deg) scale(.82)}to{opacity:1;transform:rotate(-4deg) scale(1)}}
+.sticker-in{animation:stickin .9s cubic-bezier(.2,.9,.3,1.25) 2.2s both}
+.hs-card:hover .zoom img{transform:scale(1.06)}
+.hs-card:focus-visible{outline:3px solid #1C1A1A;outline-offset:3px}
+.splat{position:fixed;width:36px;height:36px;pointer-events:none;z-index:80;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));animation:splat .6s cubic-bezier(.2,.9,.3,1.3) forwards}
+@keyframes splat{0%{transform:scale(.2);opacity:1}55%{transform:scale(1);opacity:1}100%{transform:scale(1.1);opacity:0}}
+@keyframes lbin{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.lb{display:none}
+.lb.lb-open{display:flex}
+.nav-link{position:relative}
+.nav-link::after{content:"";position:absolute;left:-6px;right:-6px;bottom:-8px;height:6px;background:#5E1A26;border-radius:3px;transform:skewX(-22deg) rotate(-3deg) scaleX(0);transform-origin:left center;transition:transform .35s cubic-bezier(.3,.7,.3,1)}
+@media (hover: hover){.nav-link:hover::after{transform:skewX(-22deg) rotate(-3deg) scaleX(1)}}
+.nav-link:focus-visible::after{transform:skewX(-22deg) rotate(-3deg) scaleX(1)}
+.kt-btn{position:relative;overflow:hidden}
+.kt-btn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:#5E1A26;transform:translateX(-100%);transition:transform .3s ease}
+@media (hover: hover){.kt-btn:hover::before{transform:none}}
+.kt-btn:focus-visible::before{transform:none}
+.hs-static .hs-pin{height:auto !important}
+.hs-static .hs-sticky{position:static;height:auto;padding:72px 0}
+.hs-static .hs-rail{transform:none !important;overflow-x:auto}
+.tool{position:absolute;height:auto;transform:rotate(var(--r));filter:drop-shadow(0 18px 16px rgba(28,26,26,.22))}
+.tool-fan{z-index:1;--r:-8deg}.tool-wide{z-index:2;--r:12deg}.tool-thin{z-index:3;--r:18deg}
+.tools-ready .tool{opacity:0;transform:translateY(-720px) rotate(var(--r))}
+@keyframes tooldrop{0%{opacity:1;transform:translateY(-720px) rotate(var(--r))}68%{transform:translateY(0) rotate(var(--r))}80%{transform:translateY(-26px) rotate(var(--r))}90%{transform:translateY(0) rotate(var(--r))}95%{transform:translateY(-6px) rotate(var(--r))}100%{opacity:1;transform:translateY(0) rotate(var(--r))}}
+.tools-ready .tools-stage.drop .tool{animation:tooldrop 1.1s cubic-bezier(.45,.05,.55,.95) both}
+.tools-ready .tools-stage.drop .tool-wide{animation-delay:.05s}
+.tools-ready .tools-stage.drop .tool-thin{animation-delay:.1s}
+@media (max-width: 900px){.tools-stage{display:none !important}}
+@media (max-width: 700px){
+.nav-link{display:none !important}
+.mj-logo{height:64px !important}
+.hero-body{padding:56px 20px 64px !important;gap:40px !important}
+.hero-ov{background:rgba(20,4,8,0.62) !important}
+.hero-sticker{max-width:230px !important;margin:0 auto !important}
+.hs-sticky{height:100svh !important}
+.hs-card{width:240px !important}
+.kt-img{position:relative !important;display:block;height:auto !important;aspect-ratio:1999 / 787}
+.kt-ov{display:none}
+.kt-body{padding:48px 20px 56px !important}
+.kv-sign{padding-bottom:0 !important;margin-top:24px !important;min-height:0 !important}
+.kv-sign img{height:72px !important}
+}
+@media (prefers-reduced-motion: reduce){.sticker-in{animation:none}.lb-open .lb-img{animation:none}.mj-cover{animation:none;display:none}.wipe{transition:none !important}.tilt,.zoom img{transition:none}.tilt:hover .zoom img{transform:none}}
