@@ -1,3 +1,18 @@
+  /* ---------- Hamburgermeny i mobilen ---------- */
+  var navToggle = doc.querySelector('.nav-toggle');
+  var siteHeader = doc.querySelector('header');
+  if (navToggle && siteHeader) {
+    var setNav = function (open) {
+      siteHeader.classList.toggle('nav-open', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? 'Stäng menyn' : 'Öppna menyn');
+    };
+    navToggle.addEventListener('click', function () { setNav(!siteHeader.classList.contains('nav-open')); });
+    Array.prototype.forEach.call(doc.querySelectorAll('.main-nav a'), function (a) {
+      a.addEventListener('click', function () { setNav(false); });
+    });
+    window.addEventListener('keydown', function (e) { if (e.key === 'Escape') setNav(false); });
+  }
 /* M&J Måleri – effekter och interaktion */
 (function () {
   var doc = document;
