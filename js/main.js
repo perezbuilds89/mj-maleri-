@@ -165,3 +165,117 @@
     ht.textContent = '';
     ht.classList.add('tw-caret');
     var step = function () {
+        n++;
+      ht.textContent = full.slice(0, n);
+      if (n < full.length) setTimeout(step, 45);
+      else setTimeout(function () { ht.classList.remove('tw-caret'); }, 1200);
+    };
+    setTimeout(step, 700);
+  }
+
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ---------- Scroll reveal ---------- */
+  root.classList.add('rv-ready');
+  var rvEls = doc.querySelectorAll('.rv');
+  if (hasIO) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    Array.prototype.forEach.call(rvEls, function (el) { io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(rvEls, function (el) { el.classList.add('in'); });
+  }
+
+  /* ---------- Verktygen faller ner (drop-in), varje gång ---------- */
+  var stage = doc.querySelector('.tools-stage');
+  if (stage && hasIO) {
+    root.classList.add('tools-ready');
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.intersectionRatio >= 0.35) stage.classList.add('drop');
+        else if (!en.isIntersecting) stage.classList.remove('drop');
+      });
+    }, { threshold: [0, 0.35] }).observe(stage);
+  }
+
+  /* ---------- Typewriter i "Så går det till" ---------- */
+  var zone = doc.querySelector('.tw-zone');
+  if (zone) {
+    var twT = [];
+    var cols = Array.prototype.map.call(zone.querySelectorAll('.tw-col'), function (c) {
+      return Array.prototype.slice.call(c.querySelectorAll('.tw'));
+    });
+    var stopTw = function () {
+      twT.forEach(clearTimeout); twT = [];
+      cols.forEach(function (els) { els.forEach(function (el) { el.textContent = ''; el.classList.remove('tw-caret'); }); });
+    };
+    var startTw = function () {
+      stopTw();
+      cols.forEach(function (els) {
+        var i = 0;
+        var next = function () {
+          if (i >= els.length) return;
+          var el = els[i++];
+          var text = el.getAttribute('data-tw') || '';
+          var k = 0;
+          el.classList.add('tw-caret');
+          var tick = function () {
+            k++;
+            el.textContent = text.slice(0, k);
+            if (k < text.length) twT.push(setTimeout(tick, 28));
+            else { el.classList.remove('tw-caret'); twT.push(setTimeout(next, 180)); }
+          };
+          tick();
+        };
+        next();
+      });
+    };
+    if (hasIO) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) startTw(); else stopTw(); });
+      }, { threshold: 0.35 }).observe(zone);
+    } else {
+      cols.forEach(function (els) { els.forEach(function (el) { el.textContent = el.getAttribute('data-tw'); }); });
+    }
+  }
+
+  /* ---------- Våra arbeten: scroll-driven horizontal scroll ---------- */
+  var pin = doc.querySelector('.hs-pin');
+  var mv = doc.querySelector('.hs-move');
+  var travel = 0;
+  function onHs() {
+    if (!pin || !mv) return;
+    var total = pin.offsetHeight - window.innerHeight;
+    var prog = total > 0 ? Math.min(1, Math.max(0, -pin.getBoundingClientRect().top / total)) : 0;
+    mv.style.transform = 'translateX(' + (-prog * travel) + 'px)';
+  }
+  function hsLayout() {
+    if (!pin || !mv) return;
+    travel = Math.max(0, mv.scrollWidth - window.innerWidth * 0.92);
+    pin.style.height = (window.innerHeight + travel) + 'px';
+    onHs();
+  }
+  if (pin && mv) {
+    hsLayout();
+    window.addEventListener('resize', hsLayout);
+    window.addEventListener('scroll', onHs, { passive: true });
+    window.addEventListener('load', hsLayout);
+  }
+
+  /* ---------- Parallax på hero-videon ---------- */
+  var heroMedia = doc.querySelector('.hero-img');
+  var raf = 0;
+  if (heroMedia) {
+    var onPar = function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        var y = Math.min(window.scrollY || 0, 900);
+        heroMedia.style.transform = 'translateY(' + (y * 0.25) + 'px) scale(1.08)';
+      });
+    };
+    window.addEventListener('scroll', onPar, { passive: true });
+    onPar();
+  }
+})();    
