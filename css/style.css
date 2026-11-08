@@ -47,7 +47,15 @@ a{color:#1C1A1A}a:hover{color:#5E1A26}
 .tools-ready .tools-stage.drop .tool-thin{animation-delay:.1s}
 @media (max-width: 900px){.tools-stage{display:none !important}}
 @media (max-width: 700px){
-.nav-link{display:none !important}
+.nav-toggle{display:flex;flex-direction:column;justify-content:center;gap:6px;width:48px;height:48px;padding:12px;border:0;background:transparent;cursor:pointer}
+.nav-toggle span{display:block;height:3px;background:#1C1A1A;border-radius:2px;transition:transform .3s ease,opacity .3s ease}
+.nav-open .nav-toggle span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.nav-open .nav-toggle span:nth-child(2){opacity:0}
+.nav-open .nav-toggle span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.main-nav{display:none !important;position:absolute;top:100%;left:0;right:0;flex-direction:column !important;align-items:stretch !important;gap:0 !important;background:#FFFFFF;padding:8px 20px 24px;box-shadow:0 18px 30px rgba(28,26,26,.12)}
+.nav-open .main-nav{display:flex !important}
+.main-nav a{padding:16px 4px !important;font-size:18px;border-bottom:1px solid #E5DED3 !important}
+.main-nav a:last-child{margin-top:16px;justify-content:center;border-bottom:0 !important}
 .mj-logo{height:64px !important}
 .hero-body{padding:56px 20px 64px !important;gap:40px !important}
 .hero-ov{background:rgba(20,4,8,0.62) !important}
@@ -61,3 +69,5 @@ a{color:#1C1A1A}a:hover{color:#5E1A26}
 .kv-sign img{height:72px !important}
 }
 @media (prefers-reduced-motion: reduce){.sticker-in{animation:none}.lb-open .lb-img{animation:none}.mj-cover{animation:none;display:none}.wipe{transition:none !important}.tilt,.zoom img{transition:none}.tilt:hover .zoom img{transform:none}}
+header{position:relative;z-index:70}
+@media (min-width: 701px){.nav-toggle{display:none}}
