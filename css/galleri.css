@@ -1,0 +1,63 @@
+/* M&J Måleri – Före & efter-galleriet */
+[hidden]{display:none !important}
+
+/* Filterknappar */
+.g-filter{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 52px}
+.g-filter button{font:inherit;font-size:16px;font-weight:600;color:#1C1A1A;background:#FFFFFF;border:2px solid #1C1A1A;padding:9px 20px;border-radius:18px 18px 18px 4px;cursor:pointer;min-height:44px;transition:background .25s ease,color .25s ease,transform .25s ease}
+.g-filter button[aria-pressed="true"]{background:#1C1A1A;color:#FFFFFF}
+@media (hover: hover){.g-filter button:hover{transform:translateY(-2px)}}
+.g-filter button:focus-visible{outline:3px solid #5E1A26;outline-offset:3px}
+
+/* Bento grid */
+.g-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:230px 230px 20px 230px 230px 20px 230px 230px;gap:26px}
+.g-grid:not(.is-filtered) .g-card{grid-column:var(--c);grid-row:var(--r)}
+.g-grid.is-filtered{grid-template-rows:none;grid-auto-rows:380px}
+.is-filtered .g-card{grid-column:auto;grid-row:auto}
+
+/* Kortet: samma pratbubbla som på startsidan */
+.g-card{position:relative;margin:0;background:#FFFFFF;padding:8px;border-radius:26px 26px 26px 6px;box-shadow:0 18px 40px rgba(28,26,26,.18);will-change:translate}
+.g-open{display:block;width:100%;height:100%;border:0;padding:0;margin:0;background:none;cursor:zoom-in;font:inherit}
+.g-open:focus-visible{outline:3px solid #1C1A1A;outline-offset:4px;border-radius:20px 20px 20px 4px}
+.g-frame{position:relative;display:block;height:100%;overflow:hidden;border-radius:20px 20px 20px 4px;background:#E8E2D8}
+.g-frame img,.g-lb-frame img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
+.g-frame img{transition:opacity .6s ease,transform .7s ease}
+.g-ef{opacity:0;transition:opacity .6s ease}
+.is-efter .g-ef{opacity:1}
+@media (hover: hover){.g-open:hover .g-frame img{transform:scale(1.05)}}
+
+/* FÖRE | EFTER (toggle) – liten, i övre vänstra hörnet */
+.g-tg{position:absolute;top:18px;left:18px;z-index:2;display:flex;padding:3px;border-radius:999px;background:rgba(28,26,26,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.g-tg button{font:inherit;font-size:11px;font-weight:600;letter-spacing:.5px;color:#FFFFFF;background:transparent;border:0;padding:5px 11px;border-radius:999px;cursor:pointer;transition:background .3s ease,color .3s ease}
+.g-tg button[aria-pressed="true"]{background:#FFFFFF;color:#1C1A1A}
+.g-tg button:focus-visible{outline:2px solid #FFFFFF;outline-offset:2px}
+.g-card.big .g-tg{top:22px;left:22px}
+.g-card.big .g-tg button{font-size:13px;padding:7px 15px}
+
+/* Etiketten under kortet */
+.g-label{position:absolute;left:20px;bottom:-16px;z-index:2;background:#1C1A1A;color:#FFFFFF;font-weight:600;font-size:16px;line-height:1.4;padding:8px 16px;border-radius:18px 18px 18px 4px;box-shadow:0 6px 14px rgba(28,26,26,.25)}
+
+/* Förstoring: kortet växer fram */
+.g-lb{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:75;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;background:rgba(243,237,228,.6)}
+.g-lb.lb-open{display:flex}
+.g-lb-card{position:relative;background:#FFFFFF;padding:12px;border-radius:34px 34px 34px 8px;box-shadow:0 30px 70px rgba(28,26,26,.35)}
+.g-lb-frame{position:relative;display:block;width:100%;overflow:hidden;border-radius:26px 26px 26px 5px;background:#E8E2D8}
+.g-lb-tg{top:26px;left:26px}
+.g-lb-tg button{font-size:14px;padding:8px 18px}
+.g-lb.is-single .g-lb-tg,.g-lb.is-single .g-ef{display:none}
+.g-lb-title{left:28px;bottom:-18px;font-size:18px;padding:10px 20px;border-radius:20px 20px 20px 5px}
+.g-lb-close{position:absolute;top:-14px;right:-14px;width:44px;height:44px;border-radius:50%;border:0;background:#FFFFFF;color:#1C1A1A;font-size:26px;line-height:1;cursor:pointer;box-shadow:0 6px 16px rgba(28,26,26,.3)}
+
+/* Mobil: 2 kolumner, ingen parallax */
+@media (max-width: 700px){
+.g-filter{margin:22px 0 36px}
+.g-grid,.g-grid.is-filtered{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:190px;grid-auto-flow:row dense;gap:30px 14px}
+.g-grid .g-card,.g-grid:not(.is-filtered) .g-card{grid-column:auto;grid-row:auto;translate:none !important}
+.g-grid .g-card.big{grid-column:span 2;grid-row:span 2}
+.g-grid .g-card.tall{grid-row:span 2}
+.g-grid.is-filtered .g-card{grid-column:auto;grid-row:span 2}
+.g-tg,.g-card.big .g-tg{top:14px;left:14px}
+.g-tg button,.g-card.big .g-tg button{font-size:10px;padding:4px 9px}
+.g-label{font-size:14px;padding:6px 13px;left:14px;bottom:-14px}
+}
+
+@media (prefers-reduced-motion: reduce){.g-frame img,.g-ef,.g-filter button{transition:none}.g-card{translate:none !important}}
