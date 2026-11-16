@@ -70,4 +70,13 @@ a{color:#1C1A1A}a:hover{color:#5E1A26}
 }
 @media (prefers-reduced-motion: reduce){.sticker-in{animation:none}.lb-open .lb-img{animation:none}.mj-cover{animation:none;display:none}.wipe{transition:none !important}.tilt,.zoom img{transition:none}.tilt:hover .zoom img{transform:none}}
 header{position:relative;z-index:70}
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.45s}
+::view-transition-group(mj-galleri){animation-duration:.65s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.hs-door .zoom img{transition:transform .7s ease}
+.hs-door .door-arrow{transition:transform .3s ease}
+@media (hover: hover){.hs-door:hover .zoom img{transform:scale(1.06)}.hs-door:hover .door-arrow{transform:translateX(4px)}}
+.hs-door:focus-visible{outline:3px solid #1C1A1A;outline-offset:3px}
+@media (max-width: 700px){.hs-door{width:240px !important}}
+@media (prefers-reduced-motion: reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none !important}}
 @media (min-width: 701px){.nav-toggle{display:none}}

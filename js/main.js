@@ -28,8 +28,9 @@
     function fit(ar) {
       var parts = String(ar).split('/');
       var ratio = parseFloat(parts[0]) / parseFloat(parts[1]) || 4 / 3;
-      var maxW = Math.min(window.innerWidth * 0.88, 760);
-      var maxH = window.innerHeight * 0.8 - 24;
+      var desk = window.innerWidth > 700;
+      var maxW = Math.min(window.innerWidth * 0.88, desk ? 1100 : 760);
+      var maxH = window.innerHeight * (desk ? 0.9 : 0.8) - 24;
       var w = Math.min(maxW, maxH * ratio);
       box.style.width = (w + 24) + 'px';
       img.style.aspectRatio = ar;
